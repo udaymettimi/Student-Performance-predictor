@@ -1,0 +1,212 @@
+{% extends 'student.html' %}
+
+{% block title %}Result | QuickGrade{% endblock %}
+
+{% block head %}
+{% block a1 %}
+<li><a href="{{ url_for('student_home') }}">Home</a></li>
+<li><a href="{{ url_for('student_home') }}#about">About</a></li>
+{% endblock %}
+<link href="{{ url_for('static', filename='/css/main.css') }}" rel="stylesheet">
+<style>
+	span{
+		color: coral;
+	}
+	#page-wrapper {
+        max-width: 800px; /* Limit the width of the content */
+        margin: 0 auto; /* Center the content */
+        padding: 20px; /* Add padding around the content */
+        background-color: white; /* White background for the content area */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+    h2 {
+        font-size: 24px; /* Increase font size for headings */
+        margin-bottom: 20px; /* Space below headings */
+    }
+    span {
+        color: coral;
+    }
+    .image.featured {
+        margin: 20px 0; /* Space around images */
+    }
+    .container {
+        margin-top: 30px; /* Space above the container */
+        padding: 15px; /* Padding inside the container */
+        background-color: #292929; /* Light gray background for the container */
+        border-radius: 5px; /* Rounded corners for the container */
+    }
+    .container h1 {
+        font-size: 20px; /* Font size for subheadings */
+        color: #007bff; /* Blue color for subheadings */
+    }
+    .container span {
+        color: green; /* Green color for important factors */
+    }
+    hr {
+        border: 1px solid #ccc; /* Light gray line for separation */
+        margin: 20px 0; /* Space around the line */
+    }
+	#footer{
+		background-color: black;
+	}
+	h2, h1{
+		font-weight: bold;
+	}
+</style>
+{% endblock %}
+
+{% block body %}
+
+<body style="font-family: sans-serif;" class="is-preload">
+<br><br><br><br><br><br>
+<center><h2>CHECK <span>PERFORMANCE RESULT</span></h2></center><br>
+	<div id="page-wrapper">
+<br>
+									<div align='center'>
+
+										{%if data == "sufficient"%}
+										<header>
+											<h2 style="color: black;">The Student's Average Performance would be <span style="color: black; background-color: pink; padding: 5px;">BELOW AVERAGE</span></h2>
+											
+										</header>
+
+										<br><br><span class="image featured"><img style="max-height: 20em; max-width: 20em;" src="{{url_for('static', filename='img/stdba1.webp')}}" alt="" /></span>
+
+										{%elif data == "fail"%}
+										<header>
+											<h2 style="color: black;">The Student's Average Performance would be <span style="color: white; background-color: red; padding: 5px;"> VERY LOW</span></h2>
+											</header>
+
+										<br><br><span class="image featured"><img style="max-height: 25em; max-width: 25em;" src="{{url_for('static', filename='img/stdpoor1.webp')}}" alt="" /></span>
+
+										{%elif data == "satisfactory"%}
+										<header>
+											<h2 style="color: black;">The Student's Average Performance would be <span style="color: white; background-color: coral; padding: 5px;">AVERAGE</span></h2>
+											
+										</header>
+
+										<br><br><span class="image featured"><img style="max-height: 20em; max-width: 20em;" src="{{url_for('static', filename='img/stdavg.png')}}" alt="" /></span>
+
+										{%elif data == "good"%}
+											<header>
+											<h2 style="color: black;">The Student's Average Performance would be<span style="color: white; background-color: lightgreen; padding: 5px;">ABOVE AVERAGE</span></h2>
+											
+										</header>
+
+										<br><br><span class="image featured"><img style="max-height: 20em; max-width: 20em;" src="{{url_for('static', filename='img/stdaa1.webp')}}" alt="" /></span>
+
+										{%else%}
+										<header>
+											<h2 style="color: black;">The Student's Average Performance would be <span style="color: white; background-color: green; padding: 5px;">EXCELLENT</span></h2>
+											
+										</header>
+
+										<br><br><span class="image featured"><img style="max-height: 20em; max-width: 20em;" src="{{url_for('static', filename='img/stdex1.webp')}}" alt="" /></span>
+
+										{%endif%}
+									 </div>
+
+									 <div class="container">
+								   <br><br> <h1>The most important factor that contributed to this prediction was: <span style="color: red;"> <b>{{col_msg[most]}}</b></span></h1><br><b>Note:</b>This factor might have affected the result positively or negatively.
+
+						   <br><br> <h1>The other important factors (in order of importance) are:</h1> 
+								{%for i in next5%}
+						  <span style="color: green;">- {{col_msg[i]}}<br></span>
+							   {%endfor%}
+
+							  <hr/>
+					  <h1>General things to take note of (from analysis):</h1>
+						1. The most important factor for students' failure is previously failed classes. <br>
+						  2. Students should stop taking alcohol (in the weekdays or weekends) as it affects their performance significantly<br>
+						  3. Parents should strengthen their relationships with their children.<br>
+						  4. Children with educated parents tend to perform better.
+						  <br>
+						  5. Students who have their schools closer to home and those that have more free time perform better.<br>
+						  6. Students that perform more extra curricular activities (school related) perform better.<br>
+						  7. Students who have more family and educational support perform better.<br> <br><br>
+						</div>
+					</div>
+						  <section id="pricing" class="pricing section">
+
+							<div class="container">
+							  <div class="container section-title" data-aos="fade-up">
+								<h2 id="plans">Plans</h2>
+								<p>Affordable Yet Featured</p>
+							  </div>
+							  <div class="row gy-4">
+						
+								<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+								  <div class="pricing-item">
+									<h3>Free Plan</h3>
+									<p class="description">Get started with our Free Plan for basic Performance tracking and essential tools at no cost.</p>
+									<h4><sup>₹</sup>0<span> / month</span></h4>
+									<a href="#" class="cta-btn" onclick="showTrialAlert()">Start a free trial</a>
+									<p class="text-center small">No credit card required</p>
+									<ul>
+									  <li><i class="bi bi-check"></i> <span>Advanced Performance Tracking</span></li>
+									  <li><i class="bi bi-check"></i> <span>Personalized Suggestions</span></li>
+									  <li class="na"><i class="bi bi-x"></i> <span>Enhanced Subject Control</span></li>
+									  <li class="na"><i class="bi bi-x"></i><span>Detailed Reports</span></li>
+									  <li class="na"><i class="bi bi-x"></i><span>Personal Mentor Influence</span></li>
+									</ul>
+								  </div>
+								</div><!-- End Pricing Item -->
+						
+								<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+								  <div class="pricing-item featured">
+									<p class="popular">Popular</p>
+									<h3>Basic Plan</h3>
+									<p class="description">The Basic Plan offers essential features for tracking your performance, with limited access to advanced tools and reports.</p>
+									<h4><sup>₹</sup>69<span> / month</span></h4>
+									<a href="#" class="cta-btn" onclick="showTrialAlert()">Start a free trial</a>
+									<p class="text-center small">No credit card required</p>
+									<ul>
+									  <li><i class="bi bi-check"></i> <span>Advanced Performance Tracking</span></li>
+									  <li><i class="bi bi-check"></i> <span>Personalized Suggestions</span></li>
+									  <li class="na"><i class="bi bi-x"></i><span>Enhanced Subject Control</span></li>
+									  <li><i class="bi bi-check"></i> <span>Personal Mentor Influence</span></li>
+									  <li><i class="bi bi-check"></i> <span>Ad-Free Experience</span></li>
+									  <li class="na"><i class="bi bi-x"></i><span>Detailed Student Reports</span></li>
+									</ul>
+								  </div>
+								</div><!-- End Pricing Item -->
+					
+								<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+									<div class="pricing-item">
+									  <h3>Premium Plan</h3>
+									  <p class="description">The Premium Plan provides advanced features, enhanced customization, and priority support </p>
+									  <h4><sup>₹</sup>149<span> / month</span></h4>
+									  <a href="#" class="cta-btn" onclick="showTrialAlert()">Start a free trial</a>
+									  <p class="text-center small">No credit card required</p>
+									  <ul>
+										
+										<li><i class="bi bi-check"></i> <span>Advanced Performance Tracking</span></li>
+										<li><i class="bi bi-check"></i> <span>Personalized Suggestions</span></li>
+										<li><i class="bi bi-check"></i> <span>Enhanced Tests</span></li>
+										<li><i class="bi bi-check"></i> <span>Personal 24/7 Mentor</span></li>
+										<li><i class="bi bi-check"></i> <span>Ad-Free Experience</span></li>
+										<li><i class="bi bi-check"></i> <span>Detailed Student Reports</span></li>
+									  </ul>
+									</div>
+								  </div>
+								  <script>
+									function showTrialAlert(){
+									  alert("This is a trial version. Please contact us for more information.");
+									}
+									</script>
+								</section>
+
+		  <!-- Main JS File -->
+		  <script src="static/js/main.js"></script>
+
+	<!-- Scripts -->
+		<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/jquery.dropotron.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/browser.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/breakpoints.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/util.js')}}"></script>
+		<script src="{{url_for('static', filename='js/main.js')}}"></script>
+</body>
+
+{% endblock %}
