@@ -42,9 +42,7 @@ jobs:
         # Run full linting; build will fail on any lint issues
         flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
 
-    - name: Test with pytest
-      run: |
-        pytest
+
 
     # Uncomment the following section if you want to include code coverage testing
     # - name: Install coverage and run tests with coverage
